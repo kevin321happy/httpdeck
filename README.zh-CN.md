@@ -36,7 +36,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://raw.githubusercontent.com/kevin321happy/httpdeck/main/docs/maven' }
+        maven { url 'https://kevin321happy.github.io/httpdeck/maven' }
     }
 }
 ```
