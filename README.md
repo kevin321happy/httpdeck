@@ -4,7 +4,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-**Status: `v0.1.0-alpha.1` — Android capture core + basic inspector UI.** Flutter and hybrid support are on the roadmap; APIs may change before `v0.1.0`.
+**Status: `v0.1.0-alpha.2` — Android capture core + basic inspector UI.** Flutter and hybrid support are on the roadmap; APIs may change before `v0.1.0`.
 
 ![Android alpha](docs/images/android-alpha.png)
 
@@ -45,8 +45,8 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    debugImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.1'
-    releaseImplementation 'io.github.kevin321happy:httpdeck-android-noop:0.1.0-alpha.1'
+    debugImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.2'
+    releaseImplementation 'io.github.kevin321happy:httpdeck-android-noop:0.1.0-alpha.2'
 }
 ```
 
@@ -86,7 +86,7 @@ Put this behind your own hidden gesture/settings entry — for example, long-pre
 Only for controlled internal/field builds:
 
 ```groovy
-// releaseImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.1'
+// releaseImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.2'
 ```
 
 ```kotlin

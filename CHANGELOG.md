@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.1.0-alpha.2
+
+- Capture failures are isolated from the business response path.
+- Skip SSE / multipart / octet-stream and oversized response bodies (no `peekBody` on large bodies).
+- `install` / listener / facade calls no longer throw into the host.
+- Added tests for streaming, multipart, large bodies and listener failures.
+- Artifacts published to GitHub Pages Maven (`0.1.0-alpha.2`).
+
 ## v0.1.0-alpha.1
 
 - Initial public alpha.

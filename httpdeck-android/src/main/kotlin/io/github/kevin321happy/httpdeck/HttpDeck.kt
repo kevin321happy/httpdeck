@@ -45,36 +45,45 @@ object HttpDeck {
         if (!config.enabled) return
         if (!BuildConfig.DEBUG && !config.enableInRelease) return
 
-        this.config = config
-        val newStore = MemoryRecordStore(config)
-        store = newStore
-        builder.addInterceptor(HttpDeckInterceptor(newStore, config))
-        replayClient = builder.build()
+        // install is called from DI/app startup; a capture misconfiguration or a
+        // builder that cannot be cloned must not crash the host app.
+        runCatching {
+            this.config = config
+            val newStore = MemoryRecordStore(config)
+            store = newStore
+            builder.addInterceptor(HttpDeckInterceptor(newStore, config))
+            replayClient = runCatching { builder.build() }.getOrNull()
+        }
     }
 
     fun isInstalled(): Boolean = store != null
 
-    fun records(): List<HttpDeckRecord> = store?.snapshot() ?: emptyList()
+    fun records(): List<HttpDeckRecord> =
+        runCatching { store?.snapshot() ?: emptyList() }.getOrDefault(emptyList())
 
     fun addListener(listener: (List<HttpDeckRecord>) -> Unit) {
-        val current = store
-        if (current == null) {
-            listener(emptyList())
-        } else {
-            current.addListener(listener)
+        runCatching {
+            val current = store
+            if (current == null) {
+                listener(emptyList())
+            } else {
+                current.addListener(listener)
+            }
         }
     }
 
     fun removeListener(listener: (List<HttpDeckRecord>) -> Unit) {
-        store?.removeListener(listener)
+        runCatching { store?.removeListener(listener) }
     }
 
     fun clear() {
-        store?.clear()
+        runCatching { store?.clear() }
     }
 
     fun show(activity: Activity) {
-        activity.startActivity(Intent(activity, HttpDeckActivity::class.java))
+        runCatching {
+            activity.startActivity(Intent(activity, HttpDeckActivity::class.java))
+        }
     }
 
     fun replay(activity: Activity, record: HttpDeckRecord, callback: (Boolean, String) -> Unit) {

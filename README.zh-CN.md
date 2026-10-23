@@ -4,7 +4,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
-**当前状态：`v0.1.0-alpha.1` — Android 捕获内核 + 基础查看界面。** Flutter / Hybrid 在路线图中，API 在 `v0.1.0` 前可能调整。
+**当前状态：`v0.1.0-alpha.2` — Android 捕获内核 + 基础查看界面。** Flutter / Hybrid 在路线图中，API 在 `v0.1.0` 前可能调整。
 
 ![Android alpha](docs/images/android-alpha.png)
 
@@ -45,8 +45,8 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    debugImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.1'
-    releaseImplementation 'io.github.kevin321happy:httpdeck-android-noop:0.1.0-alpha.1'
+    debugImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.2'
+    releaseImplementation 'io.github.kevin321happy:httpdeck-android-noop:0.1.0-alpha.2'
 }
 ```
 
@@ -83,7 +83,7 @@ HttpDeck.show(activity)
 ### Release 抓包（仅受控构建）
 
 ```groovy
-// releaseImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.1'
+// releaseImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.2'
 ```
 
 ```kotlin

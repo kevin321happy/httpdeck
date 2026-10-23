@@ -19,9 +19,30 @@ class HttpDeckInterceptor(
         val request = chain.request()
         val startNs = System.nanoTime()
         val requestBody = runCatching { readRequestBody(request) }.getOrNull()
-        return try {
-            val response = chain.proceed(request)
-            val durationMs = (System.nanoTime() - startNs) / 1_000_000
+
+        // Narrow catch: only the business call is allowed to decide the outcome.
+        // A capture failure must never replace a successful response or hide the
+        // original business exception.
+        val response = try {
+            chain.proceed(request)
+        } catch (t: Throwable) {
+            runCatching { recordFailure(request, requestBody, startNs, t) }
+            throw t
+        }
+
+        // Capture is best-effort; all failures stay inside recordSuccess.
+        runCatching { recordSuccess(request, requestBody, startNs, response) }
+        return response
+    }
+
+    private fun recordSuccess(
+        request: Request,
+        requestBody: String?,
+        startNs: Long,
+        response: Response
+    ) {
+        val durationMs = (System.nanoTime() - startNs) / 1_000_000
+        runCatching {
             store.add(
                 HttpDeckRecord(
                     id = nextId.getAndIncrement(),
@@ -32,14 +53,22 @@ class HttpDeckInterceptor(
                     requestHeaders = headersToMap(request.headers),
                     requestBody = requestBody,
                     responseHeaders = headersToMap(response.headers),
-                    responseBody = runCatching { readResponseBody(response) }.getOrNull(),
+                    responseBody = readResponseBody(response),
                     error = null,
                     timestamp = System.currentTimeMillis()
                 )
             )
-            response
-        } catch (t: Throwable) {
-            val durationMs = (System.nanoTime() - startNs) / 1_000_000
+        }
+    }
+
+    private fun recordFailure(
+        request: Request,
+        requestBody: String?,
+        startNs: Long,
+        error: Throwable
+    ) {
+        val durationMs = (System.nanoTime() - startNs) / 1_000_000
+        runCatching {
             store.add(
                 HttpDeckRecord(
                     id = nextId.getAndIncrement(),
@@ -51,11 +80,10 @@ class HttpDeckInterceptor(
                     requestBody = requestBody,
                     responseHeaders = emptyMap(),
                     responseBody = null,
-                    error = t.message ?: t.javaClass.simpleName,
+                    error = error.message ?: error.javaClass.simpleName,
                     timestamp = System.currentTimeMillis()
                 )
             )
-            throw t
         }
     }
 
@@ -63,29 +91,29 @@ class HttpDeckInterceptor(
         val body = request.body ?: return null
         val type = body.contentType()?.toString() ?: ""
         if (body.isOneShot() || body.isDuplex()) return "<$type one-shot/duplex body>"
+        if (isStreaming(type) || isMultipart(type)) return "<$type stream/multipart body>"
         val length = runCatching { body.contentLength() }.getOrDefault(-1L)
         if (length > config.maxBodyBytes) return "<body too large: $length bytes>"
         if (length < 0) return "<unknown length body>"
+        if (!isTextual(type)) return "<binary: $type, $length bytes>"
         return runCatching {
             val buffer = Buffer()
             body.writeTo(buffer)
-            val text = buffer.readUtf8()
-            if (isTextual(type)) cap(text) else "<binary: $type, $length bytes>"
+            cap(buffer.readUtf8())
         }.getOrElse { "<body unavailable: ${it.message}>" }
     }
 
     private fun readResponseBody(response: Response): String? {
+        if (response.request.method.equals("HEAD", ignoreCase = true)) return "<no body: HEAD>"
+        if (response.code == 204 || response.code == 304) return "<no body: ${response.code}>"
         val body = response.body ?: return null
         val type = body.contentType()?.toString() ?: ""
+        if (isStreaming(type)) return "<streaming: $type>"
         val length = runCatching { body.contentLength() }.getOrDefault(-1L)
+        if (length > config.maxBodyBytes) return "<body too large: $length bytes>"
         if (!isTextual(type)) return "<binary: $type, $length bytes>"
         return runCatching {
-            val text = response.peekBody(config.maxBodyBytes.toLong()).string()
-            if (length > config.maxBodyBytes) {
-                cap(text) + "\n...[truncated, total=$length bytes]"
-            } else {
-                cap(text)
-            }
+            cap(response.peekBody(config.maxBodyBytes.toLong()).string())
         }.getOrElse { "<body unavailable: ${it.message}>" }
     }
 
@@ -100,6 +128,19 @@ class HttpDeckInterceptor(
             map[name] = headers.values(name).joinToString(", ")
         }
         return map
+    }
+
+    private fun isMultipart(type: String): Boolean {
+        return type.lowercase(Locale.US).contains("multipart/")
+    }
+
+    private fun isStreaming(type: String): Boolean {
+        val lower = type.lowercase(Locale.US)
+        return lower.contains("text/event-stream") ||
+            lower.contains("application/x-ndjson") ||
+            lower.contains("application/stream+json") ||
+            lower.contains("application/grpc") ||
+            lower.contains("application/octet-stream")
     }
 
     private fun isTextual(type: String): Boolean {

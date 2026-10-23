@@ -36,7 +36,8 @@ class MemoryRecordStore(private val config: HttpDeckConfig) {
 
     fun addListener(listener: (List<HttpDeckRecord>) -> Unit) {
         listeners.add(listener)
-        listener(snapshot())
+        // An observer must never be able to break the install call.
+        runCatching { listener(snapshot()) }
     }
 
     fun removeListener(listener: (List<HttpDeckRecord>) -> Unit) {
