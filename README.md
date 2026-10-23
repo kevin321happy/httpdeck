@@ -1,3 +1,7 @@
+<div align="right">
+  <a href="README.md">English</a> | <a href="README.zh-CN.md">简体中文</a>
+</div>
+
 # HttpDeck
 
 > **In-app HTTP inspector for Android & Flutter.** Capture OkHttp and Dio traffic without root, VPN or a MITM certificate.
@@ -11,6 +15,22 @@
 [![Status](https://img.shields.io/badge/status-alpha-orange)](CHANGELOG.md)
 
 ![HttpDeck Android inspector](docs/images/android-alpha.png)
+
+## Contents
+
+- [Why HttpDeck](#why-httpdeck)
+- [Three ways to integrate](#three-ways-to-integrate)
+- [Pure native Android](#1-pure-native-android)
+- [Pure Flutter](#2-pure-flutter-android-host)
+- [Native + Flutter hybrid](#3-native--flutter-hybrid)
+- [How it works](#how-it-works)
+- [Comparison](#comparison)
+- [Release builds](#release-builds)
+- [API](#api)
+- [Build from source](#build-from-source)
+- [Status](#status)
+- [Security](#security)
+- [Contributing](#contributing)
 
 ## Why HttpDeck
 
@@ -302,3 +322,12 @@ Issues and PRs are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md).
 ## License
 
 Apache-2.0. See [LICENSE](LICENSE).
+
+---
+
+<div align="center">
+  <a href="#httpdeck">Back to top</a> · <a href="README.zh-CN.md">简体中文</a>
+  <br />
+  If HttpDeck saves you time, a ⭐ helps other mobile developers find it.
+</div>
+<!-- footer -->

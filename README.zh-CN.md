@@ -1,3 +1,7 @@
+<div align="right">
+  <a href="README.md">English</a> | <a href="README.zh-CN.md">简体中文</a>
+</div>
+
 # HttpDeck
 
 > **Android / Flutter 应用内抓包调试台。** 不用 root、不用 VPN、不用装证书，直接抓 OkHttp 和 Dio 请求。
@@ -10,6 +14,22 @@
 [![Android](https://img.shields.io/badge/Android-minSdk%2023-3DDC84)](docs/quickstart-android.md)
 
 ![HttpDeck Android 抓包面板](docs/images/android-alpha.png)
+
+## 目录
+
+- [为什么用 HttpDeck](#为什么用-httpdeck)
+- [三种接入方式](#三种接入方式)
+- [纯原生 Android 接入](#一纯原生-android-接入)
+- [纯 Flutter 接入](#二纯-flutter-接入android-宿主)
+- [原生 + Flutter 混合接入](#三原生--flutter-混合接入)
+- [工作原理](#工作原理)
+- [对比](#对比)
+- [Release 构建](#release-构建)
+- [API](#api)
+- [从源码构建](#从源码构建)
+- [状态](#状态)
+- [安全](#安全)
+- [参与](#参与)
 
 ## 为什么用 HttpDeck
 
@@ -287,3 +307,12 @@ docs/                   接入文档、设计 spec、截图
 ## License
 
 Apache-2.0，见 [LICENSE](LICENSE)。
+
+---
+
+<div align="center">
+  <a href="#httpdeck">回到顶部</a> · <a href="README.md">English</a>
+  <br />
+  如果 HttpDeck 帮你节省了时间，点一个 ⭐ 能让更多移动端开发者找到它。
+</div>
+<!-- footer -->
