@@ -11,7 +11,7 @@ Current alpha: `v0.1.0-alpha.1`. The API may change before `v0.1.0`.
 - JDK 17 for building
 - Gradle 8.x / AGP 8.x
 
-## 1. Add the JitPack repository
+## 1. Add the GitHub-hosted Maven repository
 
 Groovy `settings.gradle`:
 
@@ -20,7 +20,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven { url 'https://raw.githubusercontent.com/kevin321happy/httpdeck/main/docs/maven' }
     }
 }
 ```
@@ -32,7 +32,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url = uri("https://jitpack.io") }
+        maven { url = uri("https://raw.githubusercontent.com/kevin321happy/httpdeck/main/docs/maven") }
     }
 }
 ```
@@ -41,8 +41,8 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    debugImplementation 'com.github.kevin321happy.HttpDeck:httpdeck-android:v0.1.0-alpha.1'
-    releaseImplementation 'com.github.kevin321happy.HttpDeck:httpdeck-android-noop:v0.1.0-alpha.1'
+    debugImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.1'
+    releaseImplementation 'io.github.kevin321happy:httpdeck-android-noop:0.1.0-alpha.1'
 }
 ```
 
@@ -99,7 +99,7 @@ Recommended: hide it behind a long-press on the version label or a debug setting
 Replace the no-op artifact with the real one in the controlled variant:
 
 ```groovy
-// releaseImplementation 'com.github.kevin321happy.HttpDeck:httpdeck-android:v0.1.0-alpha.1'
+// releaseImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.1'
 ```
 
 Pass the opt-in flag:

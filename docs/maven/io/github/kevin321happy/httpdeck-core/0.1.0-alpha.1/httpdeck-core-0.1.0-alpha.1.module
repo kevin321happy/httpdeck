@@ -1,0 +1,89 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.kevin321happy",
+    "module": "httpdeck-core",
+    "version": "0.1.0-alpha.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.7"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.9.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "httpdeck-core-0.1.0-alpha.1.jar",
+          "url": "httpdeck-core-0.1.0-alpha.1.jar",
+          "size": 28137,
+          "sha512": "89675161b5b880b77cc1660856e34ebca02746d0c57fe056256dd455312f63577c5142f09c66df27ff802f5246e43d389190fb6ef71520afb298e92c5894f0da",
+          "sha256": "4c002092405e0307ecaa55032835da7ec7a103151b1de49c185c47ee52eadf4b",
+          "sha1": "c575797b95ddeddf6d18133d0a7d22562f688377",
+          "md5": "41851cc24eff1ccc06f79fe76a1db424"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "com.squareup.okhttp3",
+          "module": "okhttp",
+          "version": {
+            "requires": "4.12.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.9.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "httpdeck-core-0.1.0-alpha.1.jar",
+          "url": "httpdeck-core-0.1.0-alpha.1.jar",
+          "size": 28137,
+          "sha512": "89675161b5b880b77cc1660856e34ebca02746d0c57fe056256dd455312f63577c5142f09c66df27ff802f5246e43d389190fb6ef71520afb298e92c5894f0da",
+          "sha256": "4c002092405e0307ecaa55032835da7ec7a103151b1de49c185c47ee52eadf4b",
+          "sha1": "c575797b95ddeddf6d18133d0a7d22562f688377",
+          "md5": "41851cc24eff1ccc06f79fe76a1db424"
+        }
+      ]
+    }
+  ]
+}

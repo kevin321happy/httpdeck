@@ -1,0 +1,97 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "io.github.kevin321happy",
+    "module": "httpdeck-android",
+    "version": "0.1.0-alpha.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.7"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "io.github.kevin321happy",
+          "module": "httpdeck-core",
+          "version": {
+            "requires": "0.1.0-alpha.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.9.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "httpdeck-android-0.1.0-alpha.1.aar",
+          "url": "httpdeck-android-0.1.0-alpha.1.aar",
+          "size": 33741,
+          "sha512": "7a642629d0e67aa90fc164a74410d35257713a792ce89676860c71957cbaa5425436d4effa540747347250b8212bdee0594c955fd41b46c4c11db13ff6f7ec47",
+          "sha256": "7526b6a6681d5743a782f7abf683bf734353b0c96059deb7f69ce455887b9398",
+          "sha1": "f7a4c01b7c52728394abfd701aae928864d6268a",
+          "md5": "c7785c27f9071c6c7f5af70c075ec58c"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.squareup.okhttp3",
+          "module": "okhttp",
+          "version": {
+            "requires": "4.12.0"
+          }
+        },
+        {
+          "group": "io.github.kevin321happy",
+          "module": "httpdeck-core",
+          "version": {
+            "requires": "0.1.0-alpha.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.9.10"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "httpdeck-android-0.1.0-alpha.1.aar",
+          "url": "httpdeck-android-0.1.0-alpha.1.aar",
+          "size": 33741,
+          "sha512": "7a642629d0e67aa90fc164a74410d35257713a792ce89676860c71957cbaa5425436d4effa540747347250b8212bdee0594c955fd41b46c4c11db13ff6f7ec47",
+          "sha256": "7526b6a6681d5743a782f7abf683bf734353b0c96059deb7f69ce455887b9398",
+          "sha1": "f7a4c01b7c52728394abfd701aae928864d6268a",
+          "md5": "c7785c27f9071c6c7f5af70c075ec58c"
+        }
+      ]
+    }
+  ]
+}

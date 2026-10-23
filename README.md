@@ -3,7 +3,6 @@
 > In-app HTTP workbench for Android, Flutter and hybrid apps.
 
 [![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
-[![JitPack](https://jitpack.io/v/kevin321happy/HttpDeck.svg)](https://jitpack.io/#kevin321happy/HttpDeck)
 
 **Status: `v0.1.0-alpha.1` — Android capture core + basic inspector UI.** Flutter and hybrid support are on the roadmap; APIs may change before `v0.1.0`.
 
@@ -29,7 +28,7 @@ Not in this alpha (roadmap): Compose UI, floating traffic-pet entry, Flutter pac
 
 ## Install (Android)
 
-### 1. Add JitPack
+### 1. Add the repository
 
 ```groovy
 // settings.gradle
@@ -37,7 +36,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven { url 'https://raw.githubusercontent.com/kevin321happy/httpdeck/main/docs/maven' }
     }
 }
 ```
@@ -46,8 +45,8 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    debugImplementation 'com.github.kevin321happy.HttpDeck:httpdeck-android:v0.1.0-alpha.1'
-    releaseImplementation 'com.github.kevin321happy.HttpDeck:httpdeck-android-noop:v0.1.0-alpha.1'
+    debugImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.1'
+    releaseImplementation 'io.github.kevin321happy:httpdeck-android-noop:0.1.0-alpha.1'
 }
 ```
 
@@ -87,7 +86,7 @@ Put this behind your own hidden gesture/settings entry — for example, long-pre
 Only for controlled internal/field builds:
 
 ```groovy
-// releaseImplementation 'com.github.kevin321happy.HttpDeck:httpdeck-android:v0.1.0-alpha.1'
+// releaseImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.1'
 ```
 
 ```kotlin

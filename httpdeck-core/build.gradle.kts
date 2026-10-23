@@ -1,6 +1,12 @@
+import org.gradle.api.publish.maven.MavenPublication
+
 plugins {
     kotlin("jvm")
+    `maven-publish`
 }
+
+group = "io.github.kevin321happy"
+version = "0.1.0-alpha.1"
 
 java {
     toolchain {
@@ -17,4 +23,18 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        create<MavenPublication>("maven") {
+            from(components["java"])
+            artifactId = "httpdeck-core"
+        }
+    }
+    repositories {
+        maven {
+            url = uri(rootProject.layout.projectDirectory.dir("docs/maven"))
+        }
+    }
 }
