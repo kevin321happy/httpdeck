@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.github.kevin321happy"
-version = "0.1.0-alpha.2"
+version = "0.1.0-alpha.3"
 
 java {
     toolchain {

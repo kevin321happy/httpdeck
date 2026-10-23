@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "io.github.kevin321happy"
-version = "0.1.0-alpha.2"
+version = "0.1.0-alpha.3"
 
 android {
     namespace = "io.github.kevin321happy.httpdeck"

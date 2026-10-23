@@ -3,12 +3,13 @@
   <groupId>io.github.kevin321happy</groupId>
   <artifactId>httpdeck-android-noop</artifactId>
   <versioning>
-    <latest>0.1.0-alpha.2</latest>
-    <release>0.1.0-alpha.2</release>
+    <latest>0.1.0-alpha.3</latest>
+    <release>0.1.0-alpha.3</release>
     <versions>
       <version>0.1.0-alpha.1</version>
       <version>0.1.0-alpha.2</version>
+      <version>0.1.0-alpha.3</version>
     </versions>
-    <lastUpdated>20261023155919</lastUpdated>
+    <lastUpdated>20261023161219</lastUpdated>
   </versioning>
 </metadata>

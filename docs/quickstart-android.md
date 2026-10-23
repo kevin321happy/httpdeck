@@ -2,7 +2,7 @@
 
 This guide integrates HttpDeck into a native Android app that uses OkHttp or Retrofit.
 
-Current alpha: `v0.1.0-alpha.2`. The API may change before `v0.1.0`.
+Current alpha: `v0.1.0-alpha.3`. The API may change before `v0.1.0`.
 
 ## Requirements
 
@@ -41,8 +41,8 @@ dependencyResolutionManagement {
 
 ```groovy
 dependencies {
-    debugImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.2'
-    releaseImplementation 'io.github.kevin321happy:httpdeck-android-noop:0.1.0-alpha.2'
+    debugImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.3'
+    releaseImplementation 'io.github.kevin321happy:httpdeck-android-noop:0.1.0-alpha.3'
 }
 ```
 
@@ -99,7 +99,7 @@ Recommended: hide it behind a long-press on the version label or a debug setting
 Replace the no-op artifact with the real one in the controlled variant:
 
 ```groovy
-// releaseImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.2'
+// releaseImplementation 'io.github.kevin321happy:httpdeck-android:0.1.0-alpha.3'
 ```
 
 Pass the opt-in flag:

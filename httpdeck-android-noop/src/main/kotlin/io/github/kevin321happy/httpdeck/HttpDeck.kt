@@ -33,6 +33,8 @@ object HttpDeck {
 
     fun show(@Suppress("UNUSED_PARAMETER") activity: Activity) = Unit
 
+    fun recordFlutterEvent(@Suppress("UNUSED_PARAMETER") arguments: Map<*, *>) = Unit
+
     fun replay(
         @Suppress("UNUSED_PARAMETER") activity: Activity,
         @Suppress("UNUSED_PARAMETER") record: HttpDeckRecord,

@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.1.0-alpha.3
+
+- Public Flutter Dio adapter (`httpdeck-flutter` / `httpdeck_flutter`).
+- `HttpDeck.recordFlutterEvent(...)` for native hosts.
+- README rewritten with pure native, pure Flutter and hybrid integration paths.
+- Flutter quickstart and search topics.
+
 ## v0.1.0-alpha.2
 
 - Capture failures are isolated from the business response path.

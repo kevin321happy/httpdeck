@@ -16,6 +16,7 @@ import io.github.kevin321happy.httpdeck.core.HttpDeckReplayFactory
 import io.github.kevin321happy.httpdeck.core.HttpDeckSource
 import io.github.kevin321happy.httpdeck.core.MemoryRecordStore
 import okhttp3.OkHttpClient
+import java.util.concurrent.atomic.AtomicLong
 
 object HttpDeck {
 
@@ -28,6 +29,8 @@ object HttpDeck {
 
     @Volatile
     private var replayClient: OkHttpClient? = null
+
+    private val flutterNextId = AtomicLong(1_000_000_000L)
 
     private var config = HttpDeckConfig()
 
@@ -83,6 +86,68 @@ object HttpDeck {
     fun show(activity: Activity) {
         runCatching {
             activity.startActivity(Intent(activity, HttpDeckActivity::class.java))
+        }
+    }
+
+    /**
+     * Feed a Flutter Dio event into the same inspector.
+     *
+     * The host owns the Flutter engine and should forward
+     * `debugNetworkEvent` from its MethodChannel:
+     *
+     * MethodChannel(messenger, "io.github.kevin321happy.httpdeck/network")
+     *     .setMethodCallHandler { call, result ->
+     *         if (call.method == "debugNetworkEvent") {
+     *             HttpDeck.recordFlutterEvent(call.arguments as? Map<*, *> ?: emptyMap<Any, Any>())
+     *             result.success(true)
+     *         } else {
+     *             result.notImplemented()
+     *         }
+     *     }
+     */
+    fun recordFlutterEvent(arguments: Map<*, *>) {
+        val current = store ?: return
+        runCatching {
+            val url = arguments["url"]?.toString()?.takeIf { it.isNotBlank() } ?: return
+            val headers = toStringMap(arguments["requestHeaders"])
+            val responseHeaders = toStringMap(arguments["responseHeaders"])
+            val requestBody = capFlutterBody(arguments["requestBody"]?.toString())
+            val responseBody = capFlutterBody(arguments["responseBody"]?.toString())
+            current.add(
+                HttpDeckRecord(
+                    id = flutterNextId.getAndIncrement(),
+                    source = HttpDeckSource.FLUTTER,
+                    method = arguments["method"]?.toString() ?: "?",
+                    url = url,
+                    statusCode = (arguments["statusCode"] as? Number)?.toInt(),
+                    durationMs = (arguments["durationMs"] as? Number)?.toLong() ?: 0L,
+                    requestHeaders = headers,
+                    requestBody = requestBody,
+                    responseHeaders = responseHeaders,
+                    responseBody = responseBody,
+                    error = arguments["error"]?.toString(),
+                    timestamp = (arguments["timestamp"] as? Number)?.toLong()
+                        ?: System.currentTimeMillis(),
+                    replayed = arguments["replayed"] == true
+                )
+            )
+        }
+    }
+
+    private fun toStringMap(value: Any?): Map<String, String> {
+        val result = LinkedHashMap<String, String>()
+        (value as? Map<*, *>)?.forEach { (key, item) ->
+            if (key != null && item != null) {
+                result[key.toString()] = item.toString()
+            }
+        }
+        return result
+    }
+
+    private fun capFlutterBody(body: String?): String? {
+        if (body == null) return null
+        return if (body.length <= 64 * 1024) body else {
+            body.take(64 * 1024) + "\n...[truncated]"
         }
     }
 
